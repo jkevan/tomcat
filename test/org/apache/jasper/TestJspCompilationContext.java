@@ -41,6 +41,33 @@ public class TestJspCompilationContext extends TomcatBaseTest {
         Assert.assertTrue(body.toString().contains("00 - OK"));
     }
 
+    @Test
+    public void testTagDoingAbsoluteFileIncludeInJar() throws Exception {
+        getTomcatInstanceTestWebapp(false, true);
+
+        ByteChunk body = new ByteChunk();
+
+        int rc = getUrl("http://localhost:" + getPort() +
+            "/test/jsp/tagAbsoluteFileIncludeInJar.jsp", body, null);
+
+        Assert.assertEquals(HttpServletResponse.SC_OK, rc);
+        Assert.assertTrue(body.toString().contains("INCLUDED !!"));
+    }
+
+    @Test
+    public void testTagDoingRelativeFileIncludeInJar() throws Exception {
+        // TODO to be fixed
+        getTomcatInstanceTestWebapp(false, true);
+
+        ByteChunk body = new ByteChunk();
+
+        int rc = getUrl("http://localhost:" + getPort() +
+            "/test/jsp/tagRelativeFileIncludeInJar.jsp", body, null);
+
+        Assert.assertEquals(HttpServletResponse.SC_OK, rc);
+        Assert.assertTrue(body.toString().contains("INCLUDED !!"));
+    }
+
 
     /*
      * Test case for https://bz.apache.org/bugzilla/show_bug.cgi?id=57626
